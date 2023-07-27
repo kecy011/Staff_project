@@ -1,4 +1,6 @@
 
+# from datetime import datetime as dt
+
 class Staff:
     population = 0
     staff_info = []
@@ -24,7 +26,7 @@ class Staff:
     @classmethod
     def show_population(cls):
         for instance in Staff.staff_info:
-            Staff.population += 1
+            instance.Staff.population += 1
             return Staff.population
 
     @classmethod
@@ -42,12 +44,12 @@ class Staff:
         return False
 
     @classmethod
-    def days_present(cls, time_in):
+    def days_present(cls):
         if Staff.clock_in:
             Staff.attendance += 1
         else:
             Staff.attendance += -1
-        return Staff.attendance
+            return Staff.attendance
 
     @classmethod
     def late_days(cls):
@@ -64,7 +66,8 @@ class Scientist(Staff):
     num_scientist = 0
     all_scientists = []
     basic_salary = 150000
-    max_experience = 4
+    max_experience = 10
+    min_experience = 2
 
     def __init__(self, name: str, profession: str, qualification: str, experience: int):
         super().__init__(name, profession, qualification, experience)
@@ -106,10 +109,41 @@ class Scientist(Staff):
         net_salary = self.get_salary() - ((Staff.pension * self.get_salary()) + (Staff.tax_rate * self.get_salary()))
         return net_salary
 
-    def late_charges(self):
+    @classmethod
+    def late_charges(cls):
         late_charges = 500 * (Staff.late_days())
         return late_charges
 
-    def takehome_pay(self):
+    def take_home_pay(self):
         take_home = self.net_salary() - self.late_charges()
         return take_home
+
+    def take_leave(self):
+        pass
+
+
+class Technician:
+    max_technician = 6
+    num_of_technician = 0
+    technicians = []
+    basic_salary = 125000
+    min_experience = 1
+    max_experience = 8
+
+    def __init__(self, name: str, experience: int, qualification="HND"):
+        self.name = name
+        self.experience = experience
+        self.__qualification = qualification
+
+    @classmethod
+    def employ_technician(cls):
+        if Technician.num_of_technician < Technician.max_technician:
+            return True
+        return False
+
+    @classmethod
+    def if_eligible(cls):
+        if experience < Technician.min_experience and self.experience > Technician.max_technician:
+            return True
+
+
