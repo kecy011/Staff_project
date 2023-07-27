@@ -142,7 +142,7 @@ class Technician:
         return False
 
     @classmethod
-    def if_eligible(cls):
+    def is_eligible(cls):
         if experience < Technician.min_experience and self.experience > Technician.max_technician:
             return True
 
